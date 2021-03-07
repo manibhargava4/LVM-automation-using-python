@@ -4,7 +4,7 @@ def lvm():
     while True :
         os.system("clear")
         os.system("tput setaf 2")
-        print("\n\t*************** Welcome to LVM Menu Program *******************")
+        print("\n\t************* Welcome to LVM Menu Program *****************")
         os.system("tput setaf 7")
         print("PRESS 1 : Information about hardisk")
         print("PRESS 2 : Create Physical Volume")
@@ -12,13 +12,13 @@ def lvm():
         print("PRESS 4 : LVM or Create & format & mount the  Partition")
         print("PRESS 5 : Extend the size of volume")
         print("PRESS 6 : Exit")
-        os.system("tput setaf 3")
-        ch = int(input("\nEnter your choice : "))
+        os.system("tput setaf 3\n")
+        ch = int(input("Enter your choice : "))
         os.system("tput setaf 7")
 
         if ch == 1:
             os.system("fdisk -l")
-            input("Press any key to go to menu.")
+            input("Press any key to go back.")
             menu()
 
         elif ch == 2:
@@ -26,11 +26,9 @@ def lvm():
             pv = input("\nEnter the hard disk that you want to create as physical volume (eg. /dev/sdb) : ")
             print(os.system(("pvcreate {}".format(pv))))
             os.system("tput setaf 2")
-            print("\nPHYSICAL VOLUME CREATED!")
-            os.system("tput setaf 7")
             os.system("pvdisplay")
             os.system("tput setaf 3")
-            input("Press any key to go to menu.")
+            input("Press any key to go back.")
             lvm()
 		
         elif ch == 3:
@@ -39,11 +37,9 @@ def lvm():
             pv = input("\nEnter the name of Physical Volume that will give space to Volume Group (eg. /dev/sdb3): ")
             print(os.system(("vgcreate  {}  {}".format(vg_name,pv))))
             os.system("tput setaf 2")
-            print("\nVOLUME GROUP CREATED!")
-            os.system("tput setaf 7")
             os.system("vgdisplay")
             os.system("tput setaf 3")
-            input("Press any key to go to menu.")
+            input("Press any key to go back.")
             lvm()
 	
         elif ch == 4 :
@@ -53,8 +49,6 @@ def lvm():
             vg = input("\nEnter Volume Group from which you want to create LV: ")
             print(os.system(("lvcreate --size {}  --name {}  {}".format(pa, pa_name, vg))))			
             os.system("tput setaf 2")
-            print("\nLV Created, Formatting LVM...")
-            os.system("tput setaf 7")
             print(os.system("mkfs.ext4  /dev/{}/{}".format(vg, pa_name)))
             dir = input("\nEnter the directory to which you want to mount the partition : ")
             print(os.system("mount /dev/{}/{} {}".format(vg, pa_name, dir)))
@@ -64,7 +58,7 @@ def lvm():
             os.system("tput setaf 7")
             os.system("lvdisplay")
             os.system("tput setaf 3")
-            input("Press any key to go to menu.")
+            input("Press any key to go back.")
             lvm()
 
         elif ch == 5:
@@ -78,7 +72,7 @@ def lvm():
             print(os.system("lvextend  --size {} /dev/{}/{}".format(lve,vg,pa_name)))			
             print(os.system("resize2fs /dev/{}/{}".format(vg,pa_name)))
             os.system("tput setaf 3")
-            input("Press any key to go to menu.")
+            input("Press any key to go back.")
             lvm()
 
         elif ch == 6:
@@ -90,7 +84,7 @@ def lvm():
             os.system("tput setaf 2")
             print("INVALID CHOICE!")
             os.system("tput setaf 3")
-            input("Press any key to go to menu.")
+            input("Press any key to go back.")
             lvm()
 
 lvm()
